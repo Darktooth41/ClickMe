@@ -1,56 +1,56 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickMyGame : MonoBehaviour {
 
     public Text currencyText;
-    public double coins;
+    public double alpha;
     public double coinsClickValue;
+    public double coinsPerSecond;
 
     public Text coinsPerSecText;
     public Text clickUpgradeText;
     public Text productionUpgradeText;
 
-    public double coinsPerSecond;
     public double clickUpgradeCost;
     public double productionUpgradeCost;
 
     public void Start()
     {
-        coins = 0;
+        alpha = Math.Floor(alpha);
         coinsPerSecond = 0;
         coinsClickValue = 1;
         clickUpgradeCost = 10;
-        productionUpgradeCost = 100;
+        productionUpgradeCost = 25;
     }
     public void Update()
     {
-
-        currencyText.text = "Coins: " + coins.ToString("F0");
+        currencyText.text = "Alpha: " + alpha.ToString("F0");
         coinsPerSecText.text = coinsPerSecond.ToString("F0") + " /s";
         clickUpgradeText.text = "Click Better\n" + clickUpgradeCost.ToString("F0") + " coins";
         productionUpgradeText.text = "Click Forever\n" + productionUpgradeCost.ToString("F0") + " coins";
 
-        coins += coinsPerSecond * Time.deltaTime;
+        alpha += coinsPerSecond * Time.deltaTime;
     }
     public void Click()
     {
-        coins += coinsClickValue;
+        alpha += coinsClickValue;
     }
     public void ClickBetterUpgrade()
     {
-        if (coins >= clickUpgradeCost)
+        if (alpha >= clickUpgradeCost)
         {
-            coins -= clickUpgradeCost;
+            alpha -= clickUpgradeCost;
             clickUpgradeCost *= 1.07;
             coinsClickValue++;
         }
     }
     public void ClickForeverUpgrade()
     {
-        if (coins >= productionUpgradeCost)
+        if (alpha >= productionUpgradeCost)
         {
-            coins -= productionUpgradeCost;
+            alpha -= productionUpgradeCost;
             productionUpgradeCost *= 1.07;
             coinsPerSecond ++;
         }
